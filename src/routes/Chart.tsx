@@ -24,6 +24,9 @@ export default function Chart() {
   const { isLoading, data } = useQuery<IHistory[]>(
     ['coinHistory', coinData.coinId],
     () => fetchCoinHistory(coinData.coinId)
+    // {
+    //   refetchInterval: 10000,
+    // }
   );
 
   return (
