@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import Router from './Router';
 import { Helmet } from 'react-helmet-async';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -61,7 +62,7 @@ body {
 }
 a{
   text-decoration: none;
-  color: '#f5f6fa';
+  color: inherit;
 }
 `;
 
@@ -76,6 +77,7 @@ function App() {
       </Helmet>
       <GlobalStyle />
       <Router />
+      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }
