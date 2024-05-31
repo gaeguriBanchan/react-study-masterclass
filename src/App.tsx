@@ -61,7 +61,7 @@ body {
 }
 a{
   text-decoration: none;
-  color: inherit;
+  color: '#f5f6fa';
 }
 `;
 
