@@ -8,6 +8,8 @@ interface IForm {
   username: string;
   password: string;
   password1: string;
+  // 기타 에러 항목 추가
+  extraError?: 'string';
 }
 
 export default function TodoList() {
@@ -18,14 +20,25 @@ export default function TodoList() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IForm>({
     defaultValues: {
       email: '@naver.com',
     },
   });
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IForm) => {
+    // 패스워드 비교
+    if (data.password !== data.password1) {
+      setError(
+        'password1',
+        { message: 'password are not the same.' },
+        { shouldFocus: true }
+      );
+    }
+    // 다른 추가적인 에러도 추가가능
+    // setError('extraError', { message: 'Server offline!!!!!!!' });
   };
+  console.log(errors);
 
   return (
     <div>
@@ -48,7 +61,18 @@ export default function TodoList() {
         {/* 에러메시지를 html로 보여주기 */}
         <span>{errors?.email?.message}</span>
         <input
-          {...register('firstName', { required: 'write here' })}
+          // 특정 value 에러처리
+          // validate: (value)=> false 로 하면 항상 에러 처리
+          {...register('firstName', {
+            required: 'write here',
+            // nico, nick 포함시 validate에러처리 후 메세지
+            validate: {
+              noNico: (value) =>
+                value.includes('nico') ? 'no nicos allow' : true,
+              noNick: (value) =>
+                value.includes('nick') ? 'no nicks allow' : true,
+            },
+          })}
           placeholder="First Name"
         />
         <span>{errors?.firstName?.message}</span>
@@ -79,6 +103,7 @@ export default function TodoList() {
         />
         <span>{errors?.password1?.message}</span>
         <button>Add</button>
+        <span>{errors.extraError?.message}</span>
       </form>
     </div>
   );
