@@ -6,6 +6,8 @@ import ToDo from './ToDo';
 
 export default function TodoList() {
   const toDos = useRecoilValue(toDoState);
+  console.log(toDos);
+
   return (
     <div>
       <h1>To Dos</h1>
