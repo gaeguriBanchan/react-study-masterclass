@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
-import TodoList from './TodoList';
+import TodoList from './components/TodoList';
+import React from 'react';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
