@@ -1,7 +1,7 @@
 // import { createGlobalStyle } from 'styled-components';
 // import { Helmet } from 'react-helmet-async';
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { hourSelector, minuteState } from './atoms';
 
 // const GlobalStyle = createGlobalStyle`
@@ -69,9 +69,12 @@ import { hourSelector, minuteState } from './atoms';
 
 function App() {
   const [minutes, setMinutes] = useRecoilState(minuteState);
-  const hours = useRecoilValue(hourSelector);
+  const [hours, setHours] = useRecoilState(hourSelector);
   const onMinutesChange = (event: React.FormEvent<HTMLInputElement>) => {
     setMinutes(+event.currentTarget.value);
+  };
+  const onHoursChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setHours(+event.currentTarget.value);
   };
   return (
     <>
@@ -89,7 +92,12 @@ function App() {
           type="number"
           placeholder="Minutes"
         />
-        <input value={hours} type="number" placeholder="Hour" />
+        <input
+          value={hours}
+          onChange={onHoursChange}
+          type="number"
+          placeholder="Hour"
+        />
       </form>
     </>
   );
