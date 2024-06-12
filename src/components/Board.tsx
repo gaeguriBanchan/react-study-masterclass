@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import DraggableCard from './DraggableCard';
 
 const Wrapper = styled.div`
-  padding: 20px 10px;
+  padding-top: 20px;
   background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
   min-height: 300px;
@@ -15,16 +15,20 @@ const Wrapper = styled.div`
 const Title = styled.h2`
   text-align: center;
   font-weight: 600;
-  margin-bottom: 20px;
   font-size: 18px;
 `;
 
 const Area = styled.div<IAreaProps>`
   background-color: ${(props) =>
-    props.isDraggingOver ? 'pink' : props.draggingFromThis ? 'hotpink' : null};
+    props.isDraggingOver
+      ? '#dfe6e9'
+      : props.draggingFromThis
+      ? '#b2bec3'
+      : 'transparent'};
   flex-grow: 1;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+  padding: 20px;
 `;
 
 interface IAreaProps {
