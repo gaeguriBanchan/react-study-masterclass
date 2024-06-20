@@ -5,7 +5,7 @@ import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 const Wrapper = styled(motion.div)`
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: 300vh;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
@@ -50,10 +50,14 @@ function App() {
       'linear-gradient(135deg, rgb(0, 238, 182),rgb(222, 238, 0))',
     ]
   );
+  // scroll의 위치값 (scrollY: 실체위치 px로 표시, scrollYProgress: 0~1로 비율을 표시)
+  const { scrollYProgress } = useScroll();
+  // scroll의 위치 값을 원하는 값으로 변경
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 5]);
   return (
     <>
       <Wrapper style={{ background: gradient }}>
-        <Box style={{ x, rotate }} drag="x" dragSnapToOrigin />
+        <Box style={{ x, rotate, scale }} drag="x" dragSnapToOrigin />
       </Wrapper>
     </>
   );
