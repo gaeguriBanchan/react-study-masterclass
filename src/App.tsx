@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 
 const Wrapper = styled(motion.div)`
   display: flex;
@@ -9,6 +9,7 @@ const Wrapper = styled(motion.div)`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
 `;
 
 const Box = styled(motion.div)`
@@ -38,11 +39,21 @@ function App() {
   // motion의 위치
   const x = useMotionValue(0);
   // motion 위치의 값을 원하는 값으로 변경
-  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  const rotate = useTransform(x, [-800, 800], [-360, 360]);
+  // motion 위치의 값을 원하는 값으로 변경
+  const gradient = useTransform(
+    x,
+    [-800, 0, 800],
+    [
+      'linear-gradient(135deg, rgb(139, 0, 238),rgb(0, 123, 238))',
+      'linear-gradient(135deg, rgb(238,0,153),rgb(190, 0, 238))',
+      'linear-gradient(135deg, rgb(0, 238, 182),rgb(222, 238, 0))',
+    ]
+  );
   return (
     <>
-      <Wrapper>
-        <Box style={{ x, scale }} drag="x" dragSnapToOrigin />
+      <Wrapper style={{ background: gradient }}>
+        <Box style={{ x, rotate }} drag="x" dragSnapToOrigin />
       </Wrapper>
     </>
   );
