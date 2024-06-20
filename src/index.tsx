@@ -59,9 +59,10 @@ table {
 }
 body {
   font-family: "Roboto", sans-serif;
-  font-weight: 600;
-  background-color: ${(props) => props.theme.bgColor};
+  font-weight: 300;
   color: black;
+  line-height: 1.2;
+  background:linear-gradient(135deg,#e09,#d0e);
 }
 a{
   text-decoration: none;
