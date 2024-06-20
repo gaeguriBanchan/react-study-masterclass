@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const Wrapper = styled(motion.div)`
   display: flex;
@@ -35,25 +35,14 @@ const BiggerBox = styled(motion.div)`
 `;
 
 function App() {
-  // ref : 코드로 특정 Element를 잡을 수 있는 방법
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  // motion의 위치
+  const x = useMotionValue(0);
+  // motion 위치의 값을 원하는 값으로 변경
+  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
   return (
     <>
       <Wrapper>
-        <BiggerBox ref={biggerBoxRef}>
-          <Box
-            drag
-            // dragConstraints drag 가능 범위
-            dragConstraints={biggerBoxRef}
-            // dragSnapToOrigin: drag 종료되면 원위치
-            dragSnapToOrigin
-            // dragElastic: drag 가능범위를 넘어갈때 탄성 조절, 0~1, 기본은 0.5
-            dragElastic={0.5}
-            variants={boxVariants}
-            whileHover="hover"
-            whileTap="tap"
-          ></Box>
-        </BiggerBox>
+        <Box style={{ x, scale }} drag="x" dragSnapToOrigin />
       </Wrapper>
     </>
   );
