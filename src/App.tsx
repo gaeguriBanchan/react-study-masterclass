@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -22,13 +22,23 @@ const Box = styled(motion.div)`
 const boxVariants = {
   hover: { scale: 1.5, rotate: 90 },
   tap: { scale: 1, borderRadius: '100px' },
+  drag: {
+    backgroundColor: 'rgb(46,204,113)',
+    transition: { duration: 1 },
+  },
 };
 
 function App() {
   return (
     <>
       <Wrapper>
-        <Box variants={boxVariants} whileHover="hover" whileTap="tap"></Box>
+        <Box
+          drag
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="tap"
+          whileDrag="drag"
+        ></Box>
       </Wrapper>
     </>
   );
