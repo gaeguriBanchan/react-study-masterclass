@@ -62,7 +62,7 @@ body {
   font-weight: 300;
   color: black;
   line-height: 1.2;
-  background:linear-gradient(135deg,#e09,#d0e);
+  background:linear-gradient(135deg,#e09,#7b00ee);
 }
 a{
   text-decoration: none;
