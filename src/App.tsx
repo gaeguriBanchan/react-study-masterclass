@@ -16,16 +16,21 @@ const Wrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
+  /* flex-direction: column; */
 `;
 
 const Box = styled(motion.div)`
-  width: 200px;
+  width: 400px;
   height: 200px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 40px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
-  top: 100px;
+  display: flex;
   position: absolute;
+  top: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 `;
 
 const BiggerBox = styled(motion.div)`
@@ -70,25 +75,52 @@ const boxVariants = {
   exit: { opacity: 0, scale: 0, y: 20 },
 };
 
+const box = {
+  hidden: (back: boolean) => ({ opacity: 0, x: back ? -500 : 500, scale: 0 }),
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.3 },
+  },
+  exit: (back: boolean) => ({
+    opacity: 0,
+    x: back ? 500 : -500,
+    scale: 0,
+    transition: { duration: 0.3 },
+  }),
+};
+
 function App() {
-  const [showing, setShowing] = useState(false);
-  const toggleShowing = () => {
-    setShowing((prev) => !prev);
+  const [visible, setVisible] = useState(1);
+  const [back, setBack] = useState(false);
+  const nextBtn = async () => {
+    await setBack(false);
+    setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  };
+  const prevBtn = async () => {
+    await setBack(true);
+    setVisible((prev) => (prev === 1 ? 1 : prev - 1));
   };
   return (
     <>
       <Wrapper>
-        <button onClick={toggleShowing}>Click!</button>
-        <AnimatePresence>
-          {showing ? (
-            <Box
-              variants={boxVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            />
-          ) : null}
+        {/* AnimatePresence에 mode="wait" 을 추가하면 exit 끝난뒤 animate 작동 */}
+        <AnimatePresence custom={back}>
+          <Box
+            // custom을 사용해서 값을 전달하면 initial과 exit를 반전가능, custom은 AnimatePresence에도 넣어줘야한다
+            custom={back}
+            key={visible}
+            variants={box}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {visible}
+          </Box>
         </AnimatePresence>
+        <button onClick={prevBtn}>Prev!</button>
+        <button onClick={nextBtn}>Next!</button>
       </Wrapper>
     </>
   );
