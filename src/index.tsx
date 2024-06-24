@@ -4,7 +4,7 @@ import App from './App';
 import { HelmetProvider } from 'react-helmet-async';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { darkTheme } from './theme';
+import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -78,7 +78,7 @@ root.render(
   // <React.StrictMode>
   <HelmetProvider>
     <RecoilRoot>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         <App />
       </ThemeProvider>
